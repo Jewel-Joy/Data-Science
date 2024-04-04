@@ -1,0 +1,15 @@
+library(MASS)
+data("Boston")
+View(Boston)
+?Boston
+library(caTools)
+set.seed(2)
+split<-sample.split(Boston$medv,SplitRatio = 0.7)
+training<-subset(Boston,split=="TRUE")
+testing<-subset(Boston,split=="FALSE")
+model<-lm(medv~.-indus-age,data=training)
+summary(model)
+predic<-predict(model,testing)
+predic
+plot(testing$medv,col="green")
+lines(predic,col="blue")
