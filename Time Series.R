@@ -1,0 +1,28 @@
+data(AirPassengers)
+class(AirPassengers)
+start(AirPassengers)
+end(AirPassengers)
+frequency(AirPassengers)
+summary(AirPassengers)
+View(AirPassengers)
+plot(AirPassengers)
+abline(reg~lm(AirPassengers~time(AirPassengers)))
+boxplot(AirPassengers~cycle(AirPassengers))
+plot(diff(log(AirPassengers)))
+library(tseries)
+acf(diff(log(AirPassengers)))
+pacf(diff(log(AirPassengers)))
+plot(diff(log(AirPassengers)))
+fit<-arima(log(AirPassengers),c(0,1,1),seasonal = list(order=c(0,1,1),period=12))
+pred<-predict(fit,n.ahead=10*12)
+pred1<-2.718^pred$pred
+ts.plot(AirPassengers,2.718^pred$pred,log="y",lty=c(1,3))
+
+datawide<-ts(AirPassengers,frequency = 12,start = c(1949,1),end = c(1959,12))
+
+fit<-arima(log(AirPassengers),c(0,1,1),seasonal = list(order=c(0,1,1),period=12))
+pred<-predict(fit,n.ahead=10*12)
+pred1<-2.718^pred$pred
+data1<-head(pred1,12)
+predicted_1960<-round(data1,digits=0)
+original_1960<-tail(AirPassengers,12)
